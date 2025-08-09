@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">主页</a>
+        <a href="intro.html">竞赛简介</a>
+        <a href="spirit.html">实验室精神</a>
+        <a href="groups.html">实验室组别</a>
+        <a href="contact.html">联系我们</a>
+    </nav>
+    <header>
+        <h1>页面3</h1>
+    </header>
+    <div class="container">
+        <p>这里是页面3的内容。</p>
+    </div>
+    <footer>
+        <p>&copy; 2025 ASC智能车实验室. 保留所有权利。</p>
+        <p>浙ICP备2025189316号-1</p>
+    </footer>
+    <div style="position: fixed; bottom: 1rem; right: 1rem; width: auto; background: #333; color: #fff; padding: 0.5rem; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); border-radius: 10px; text-align: center;">
+        <h2 style="margin-top: 0; font-size: 1.2rem;">侧边栏</h2>
+        <button style="background: none; border: none; color: #fff; cursor: pointer; font-size: 1rem;" onclick="toggleTheme()" id="theme-button">亮</button>
+    </div>
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = newTheme === 'dark' ? '暗' : '亮';
+        }
+
+        // 初始化主题
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeButton = document.getElementById('theme-button');
+            themeButton.textContent = savedTheme === 'dark' ? '暗' : '亮';
+        })();
+    </script>
+</body>
+</html>

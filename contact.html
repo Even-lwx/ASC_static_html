@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - ASC智能车实验室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --header-bg: linear-gradient(to right, #0078d7, #0053a6);
+            --container-bg: #fff;
+            --footer-bg: #333;
+            --highlight-bg: #e8f4fc;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: linear-gradient(to right, #1a73e8, #004ba0);
+            --container-bg: #1e1e1e;
+            --footer-bg: #1e1e1e;
+            --highlight-bg: #2a2a2a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            padding-top: 60px;
+            /* 为固定导航栏留出空间 */
+        }
+
+        header {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 3rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            margin: 0;
+            padding: 1.5rem 0;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #0053a6;
+            border-bottom: 3px solid #0078d7;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.8rem;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 600;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #0078d7;
+            bottom: -3px;
+            left: 0;
+        }
+
+        h3 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin: 1.5rem 0 1rem;
+            color: #0053a6;
+        }
+
+        p {
+            margin: 1.2rem 0;
+            line-height: 1.8;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 0.8rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 5px solid #0078d7;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            border-radius: 0 6px 6px 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        ul li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] ul li {
+            background: #2c2c2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--footer-bg);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: var(--highlight-bg);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            display: inline-block;
+            margin: 0.5rem 0;
+            border-left: 4px solid #0078d7;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--header-bg);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: #0053a6;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        nav {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #0053a6;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .sidebar {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: auto;
+            background: #333;
+            color: #fff;
+            padding: 0.8rem;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar:hover {
+            transform: translateY(-5px);
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: rgb(90, 150, 225);
+            border-bottom: 2px solid blue;
+            padding-bottom: 0.3rem;
+        }
+
+        .sidebar button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info {
+            padding: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            color: #0078d7;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .qq-group-link {
+            color: #0078d7;
+            text-decoration: underline;
+            transition: var(--transition);
+        }
+
+        .qq-group-link:hover {
+            color: #0053a6;
+            font-weight: bold;
+        }
+
+        .qrcodes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            justify-items: center;
+        }
+
+        .qrcode-card {
+            text-align: center;
+            padding: 1rem;
+            background: var(--highlight-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .qrcode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .qrcode-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            background: white;
+        }
+
+        .qrcode-desc {
+            font-weight: 500;
+            color: #0053a6;
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: center;
+                gap: 1rem;
+                padding: 0.8rem 5%;
+            }
+
+            .container {
+                padding: 1.8rem;
+                margin: 2rem auto;
+            }
+
+            h2 {
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            header h1 {
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>主题切换</h2>
+        <button onclick="toggleTheme()" id="theme-button">
+            <i class="fas fa-sun"></i> 亮色
+        </button>
+    </div>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html" class="active"><i class="fas fa-envelope"></i> 联系我们</a>
+    </nav>
+    <header>
+        <h1><i class="fas fa-paper-plane"></i> 联系我们</h1>
+    </header>
+    <div class="container">
+        <h2>联系方式</h2>
+        <p class="highlight">如果您对ASC智能车实验室有任何疑问、建议或合作意向，欢迎通过以下方式与我们联系，我们将尽快回复您。</p>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>联系信息</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <span>地址：杭州电子科技大学西北田径场智能车实验室</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-weixin contact-icon"></i>
+                        <span>微信公众号：ASC智能车实验室</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-qq contact-icon"></i>
+                        <span>
+                            QQ招新群号：705309953<br>
+                            点击链接加入群聊【2025ASC实验室招新群】：
+                            <a href="https://qm.qq.com/q/QZFu4P5bcy" class="qq-group-link" target="_blank">
+                                https://qm.qq.com/q/QZFu4P5bcy
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+
+                <h3>扫码关注/加入</h3>
+                <div class="qrcodes-container">
+                    <div class="qrcode-card">
+                        <img src="contact/qq.jpg" alt="ASC智能车实验室QQ招新群二维码" class="qrcode-img">
+                        <div class="qrcode-desc">QQ招新群</div>
+                    </div>
+                    <div class="qrcode-card">
+                        <img src="contact/wechat.jpg" alt="ASC智能车实验室微信公众号二维码" class="qrcode-img">
+                        <div class="qrcode-desc">微信公众号</div>
+                    </div>
+                </div>
+
+                <h3>常见问题</h3>
+                <p>如果您有关于实验室加入、技术咨询等问题，建议先查看我们的<a href="#"
+                        style="color: #0078d7; text-decoration: underline;">FAQ页面</a>，那里可能有您需要的答案。</p>
+            </div>
+        </div>
+
+        <h2>加入我们</h2>
+        <p>我们常年招募对智能车技术感兴趣的同学加入，无论您是有相关经验还是零基础，只要有热情和学习意愿，都欢迎联系我们了解招募信息。</p>
+        <p>招募时间通常为每学期开学后两周内，具体信息请关注我们的微信公众号通知或加入QQ招新群了解详情。</p>
+    </div>
+    <footer>
+        <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
+        <p>浙ICP备2025189316号-1</p>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const themeButton = document.getElementById('theme-button');
+            if (newTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        }
+
+        // 初始化主题
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeButton = document.getElementById('theme-button');
+            if (savedTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        })();
+    </script>
+</body>
+
+</html>

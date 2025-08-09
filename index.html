@@ -1,0 +1,744 @@
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASC智能车实验室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --header-bg: linear-gradient(to right, #0078d7, #0053a6);
+            --container-bg: #fff;
+            --footer-bg: #333;
+            --highlight-bg: #e8f4fc;
+            --carousel-control: rgba(0, 0, 0, 0.5);
+            --carousel-control-hover: rgba(0, 0, 0, 0.8);
+            --indicator-active: #0078d7;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: linear-gradient(to right, #1a73e8, #004ba0);
+            --container-bg: #1e1e1e;
+            --footer-bg: #1e1e1e;
+            --highlight-bg: #2a2a2a;
+            --carousel-control: rgba(255, 255, 255, 0.5);
+            --carousel-control-hover: rgba(255, 255, 255, 0.8);
+            --indicator-active: #4dabf5;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            padding-top: 60px;
+            /* 为固定导航栏留出空间 */
+        }
+
+        header {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 2rem 0 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            /* 增大标题字体 */
+            margin: 0;
+            padding: 1.5rem 0;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #0053a6;
+            border-bottom: 3px solid #0078d7;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.8rem;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            /* 增大二级标题 */
+            font-weight: 600;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #0078d7;
+            bottom: -3px;
+            left: 0;
+        }
+
+        p {
+            margin: 1.2rem 0;
+            line-height: 1.8;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            /* 增大正文字体 */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 0.8rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 5px solid #0078d7;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            /* 增大列表字体 */
+            border-radius: 0 6px 6px 0;
+            transition: var(--transition);
+        }
+
+        ul li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] ul li {
+            background: #2c2c2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--footer-bg);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: var(--highlight-bg);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            /* 增大高亮文本 */
+            display: inline-block;
+            margin: 0.5rem 0;
+            border-left: 4px solid #0078d7;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--header-bg);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: #0053a6;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        nav {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            /* 增大导航字体 */
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #0053a6;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .sidebar {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: auto;
+            background: #333;
+            color: #fff;
+            padding: 0.8rem;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar:hover {
+            transform: translateY(-5px);
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: rgb(90, 150, 225);
+            border-bottom: 2px solid blue;
+            padding-bottom: 0.3rem;
+        }
+
+        .sidebar button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* 图片轮播样式 - 固定为完整显示模式 */
+        .photo-carousel {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 响应式高度设置 */
+        @media (min-width: 1024px) {
+            .photo-carousel {
+                height: 50vh;
+                max-height: 550px;
+            }
+        }
+
+        @media (max-width: 1023px) and (min-width: 768px) {
+            .photo-carousel {
+                height: 45vh;
+                max-height: 450px;
+            }
+        }
+
+        @media (max-width: 767px) and (min-width: 480px) {
+            .photo-carousel {
+                height: 40vh;
+                max-height: 380px;
+            }
+        }
+
+        @media (max-width: 479px) {
+            .photo-carousel {
+                height: 35vh;
+                max-height: 320px;
+            }
+        }
+
+        .carousel-inner {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* 固定为完整显示模式 */
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            background-color: #f0f0f0;
+        }
+
+        [data-theme="dark"] .carousel-item img {
+            background-color: #2a2a2a;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            text-align: center;
+        }
+
+        .carousel-caption h3 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            /* 增大轮播标题 */
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .carousel-caption p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            /* 增大轮播描述 */
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* 轮播控制按钮 */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--carousel-control);
+            color: white;
+            border: none;
+            width: clamp(40px, 8vw, 60px);
+            height: clamp(40px, 8vw, 60px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .carousel-control:hover {
+            background-color: var(--carousel-control-hover);
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .carousel-control.prev {
+            left: clamp(0.5rem, 2vw, 1rem);
+        }
+
+        .carousel-control.next {
+            right: clamp(0.5rem, 2vw, 1rem);
+        }
+
+        /* 轮播指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: clamp(4rem, 12vw, 6rem);
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.5rem, 2vw, 0.8rem);
+            z-index: 10;
+        }
+
+        .indicator {
+            width: clamp(10px, 3vw, 15px);
+            height: clamp(10px, 3vw, 15px);
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .indicator.active {
+            background-color: var(--indicator-active);
+            transform: scale(1.4);
+        }
+
+        /* 轮播控制选项 - 只保留播放/暂停按钮 */
+        .carousel-controls {
+            position: absolute;
+            top: clamp(0.5rem, 2vw, 1rem);
+            right: clamp(0.5rem, 2vw, 1rem);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .carousel-control-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2vw, 1.2rem);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .carousel-control-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: center;
+                gap: 1rem;
+                padding: 0.8rem 5%;
+            }
+
+            .container {
+                padding: 1.8rem;
+                margin: 2rem auto;
+            }
+
+            h2 {
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .carousel-indicators {
+                bottom: clamp(3.5rem, 10vw, 5rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            header h1 {
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>主题切换</h2>
+        <button onclick="toggleTheme()" id="theme-button">
+            <i class="fas fa-sun"></i> 亮色
+        </button>
+    </div>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+    </nav>
+    <header>
+        <div class="photo-carousel" id="photoCarousel">
+            <div class="carousel-inner">
+                <!-- 轮播项1 -->
+                <div class="carousel-item">
+                    <img src="https://pic1.imgdb.cn/item/68977cc958cb8da5c8158e84.jpg" alt="帅气的zyz学长">
+                    <div class="carousel-caption">
+                        <h3>实验室成员日常研发</h3>
+                        <p>团队成员正在调试智能车控制系统</p>
+                    </div>
+                </div>
+
+                <!-- 轮播项2 -->
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/id/180/1000/400" alt="智能车竞赛现场">
+                    <div class="carousel-caption">
+                        <h3>全国智能车竞赛现场</h3>
+                        <p>我校代表队在全国总决赛中表现优异</p>
+                    </div>
+                </div>
+
+                <!-- 轮播项3 -->
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/id/160/1000/400" alt="实验室设备">
+                    <div class="carousel-caption">
+                        <h3>先进的研发设备</h3>
+                        <p>实验室配备多种先进的智能车研发设备</p>
+                    </div>
+                </div>
+
+                <!-- 轮播项4 -->
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/id/96/1000/400" alt="团队合影">
+                    <div class="carousel-caption">
+                        <h3>ASC实验室团队合影</h3>
+                        <p>2024届实验室核心成员合影</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 轮播控制按钮 -->
+            <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+            <button class="carousel-control next" onclick="nextSlide()">❯</button>
+
+            <!-- 轮播指示器 -->
+            <div class="carousel-indicators" id="indicators"></div>
+
+            <!-- 轮播控制选项 - 只保留播放/暂停按钮 -->
+            <div class="carousel-controls">
+                <button class="carousel-control-btn" onclick="togglePlay()" id="playButton">
+                    <span id="playIcon"><i class="fas fa-pause"></i></span> 暂停
+                </button>
+            </div>
+        </div>
+        <h1>欢迎关注ASC智能车实验室</h1>
+    </header>
+    <div class="container" id="intro">
+        <h2><i class="fas fa-trophy"></i> 智能车竞赛简介</h2>
+        <p class="highlight">全国大学生智能汽车竞赛是由中国自动化学会主办的A类甲等赛事，杭电将其列为最重视的竞赛之一。</p>
+        <p>参赛队伍需自主设计能感知环境、规划路径的智能模型车，在特定赛道完成竞速等任务，涵盖自动控制、编程、机械设计等多学科知识。</p>
+    </div>
+    <div class="container" id="spirit">
+        <h2><i class="fas fa-heart"></i> 实验室精神</h2>
+        <p>我们秉承<span
+                class="highlight">“Adventure（探索）、Cooperation（合作）、Success（成功）”</span>的精神，鼓励大家勇敢探索技术边界，在合作中共同成长，最终收获属于自己的成功。
+        </p>
+    </div>
+    <div class="container" id="groups">
+        <h2><i class="fas fa-sitemap"></i> 实验室组别</h2>
+        <p>实验室分为多个组别，适配不同兴趣和技能，涵盖嵌入式开发、电控设计、机械设计等方向，帮助成员在各自领域中成长。</p>
+    </div>
+    <div class="container" id="contact">
+        <h2><i class="fas fa-address-card"></i> 联系我们</h2>
+        <p>如果您对我们的工作感兴趣，欢迎通过以下方式联系我们：</p>
+        <ul>
+            <li><i class="fas fa-envelope"></i> 邮箱：asc-lab@example.com</li>
+            <li><i class="fas fa-phone"></i> 电话：+86 123 4567 8901</li>
+            <li><i class="fas fa-map-marker-alt"></i> 地址：中国某地某街道123号</li>
+        </ul>
+    </div>
+    <footer>
+        <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
+        <p>浙ICP备2025189316号-1</p>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const themeButton = document.getElementById('theme-button');
+            if (newTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        }
+
+        // 初始化主题
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeButton = document.getElementById('theme-button');
+            if (savedTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        })();
+
+        // 图片轮播功能
+        let currentSlide = 0;
+        let slideInterval;
+        const slideDelay = 5000;
+        let isPlaying = true;
+
+        // 获取轮播元素
+        const carousel = document.querySelector('.carousel-inner');
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicatorsContainer = document.getElementById('indicators');
+        const playButton = document.getElementById('playButton');
+        const playIcon = document.getElementById('playIcon');
+
+        // 创建轮播指示器
+        function createIndicators() {
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+        }
+
+        // 更新指示器状态
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        // 切换到指定幻灯片
+        function goToSlide(index) {
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+
+            currentSlide = index;
+            const offset = -currentSlide * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+            updateIndicators();
+        }
+
+        // 下一张幻灯片
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        // 上一张幻灯片
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // 开始自动播放
+        function startPlay() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, slideDelay);
+            isPlaying = true;
+            playButton.innerHTML = '<span id="playIcon"><i class="fas fa-pause"></i></span> 暂停';
+        }
+
+        // 停止自动播放
+        function stopPlay() {
+            clearInterval(slideInterval);
+            isPlaying = false;
+            playButton.innerHTML = '<span id="playIcon"><i class="fas fa-play"></i></span> 播放';
+        }
+
+        // 切换播放/暂停状态
+        function togglePlay() {
+            if (isPlaying) {
+                stopPlay();
+            } else {
+                startPlay();
+            }
+        }
+
+        // 初始化轮播
+        function initCarousel() {
+            createIndicators();
+            startPlay();
+
+            // 鼠标悬停控制
+            const carouselContainer = document.querySelector('.photo-carousel');
+            carouselContainer.addEventListener('mouseenter', stopPlay);
+            carouselContainer.addEventListener('mouseleave', () => {
+                if (isPlaying) startPlay();
+            });
+
+            // 键盘控制
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+
+            // 窗口大小调整
+            window.addEventListener('resize', () => {
+                const offset = -currentSlide * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+            });
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('load', initCarousel);
+    </script>
+
+
+</body>
+
+</html>

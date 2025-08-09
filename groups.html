@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实验室组别 - ASC智能车实验室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --header-bg: linear-gradient(to right, #0078d7, #0053a6);
+            --container-bg: #fff;
+            --footer-bg: #333;
+            --highlight-bg: #e8f4fc;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: linear-gradient(to right, #1a73e8, #004ba0);
+            --container-bg: #1e1e1e;
+            --footer-bg: #1e1e1e;
+            --highlight-bg: #2a2a2a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            padding-top: 60px;
+            /* 为固定导航栏留出空间 */
+        }
+
+        header {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 3rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            margin: 0;
+            padding: 1.5rem 0;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #0053a6;
+            border-bottom: 3px solid #0078d7;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.8rem;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 600;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #0078d7;
+            bottom: -3px;
+            left: 0;
+        }
+
+        h3 {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            margin: 1.5rem 0 1rem;
+            color: #0053a6;
+        }
+
+        p {
+            margin: 1.2rem 0;
+            line-height: 1.8;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 0.8rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 5px solid #0078d7;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            border-radius: 0 6px 6px 0;
+            transition: var(--transition);
+        }
+
+        ul li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] ul li {
+            background: #2c2c2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--footer-bg);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .highlight {
+            background: var(--highlight-bg);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            display: inline-block;
+            margin: 0.5rem 0;
+            border-left: 4px solid #0078d7;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--header-bg);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: #0053a6;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        nav {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            transition: var(--transition);
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #0053a6;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .sidebar {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: auto;
+            background: #333;
+            color: #fff;
+            padding: 0.8rem;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .sidebar:hover {
+            transform: translateY(-5px);
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: rgb(90, 150, 225);
+            border-bottom: 2px solid blue;
+            padding-bottom: 0.3rem;
+        }
+
+        .sidebar button {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .group-card {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .group-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .group-header {
+            background: linear-gradient(135deg, #0078d7, #0053a6);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .group-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .group-card:hover .group-icon {
+            transform: scale(1.1);
+        }
+
+        .group-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .group-body p {
+            flex-grow: 1;
+        }
+
+        .group-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 120, 215, 0.1);
+            color: #0053a6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .skill-tag {
+            background: rgba(77, 171, 245, 0.2);
+            color: #4dabf5;
+        }
+
+        /* 小屏幕适配 */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: center;
+                gap: 1rem;
+                padding: 0.8rem 5%;
+            }
+
+            .container {
+                padding: 1.8rem;
+                margin: 2rem auto;
+            }
+
+            h2 {
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .groups-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            header h1 {
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>主题切换</h2>
+        <button onclick="toggleTheme()" id="theme-button">
+            <i class="fas fa-sun"></i> 亮色
+        </button>
+    </div>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html" class="active"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+    </nav>
+    <header>
+        <h1><i class="fas fa-sitemap"></i> ASC智能车实验室组别</h1>
+    </header>
+    <div class="container">
+        <h2>实验室分组介绍</h2>
+        <p class="highlight">为了高效完成智能车的研发与竞赛任务，实验室根据功能需求划分为三个核心组别，每个组别专注于特定领域的工作，同时保持紧密协作。</p>
+
+        <p>各组别既独立负责专业领域的工作，又相互配合完成整体项目。这种分工模式既能发挥个人专长，又能培养团队协作能力，是我们完成复杂工程任务的有效组织方式。</p>
+
+        <div class="groups-grid">
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>电控组</h3>
+                </div>
+                <div class="group-body">
+                    <p>负责智能车的电子控制系统设计与实现，专注于软件算法开发与系统控制，是智能车的"大脑"。</p>
+                    <h4>主要职责：</h4>
+                    <ul>
+                        <li>开发路径识别与跟踪算法</li>
+                        <li>设计车辆控制算法与PID参数调试</li>
+                        <li>编写嵌入式控制程序</li>
+                        <li>实现传感器数据处理与决策逻辑</li>
+                        <li>优化系统响应速度与稳定性</li>
+                    </ul>
+                    <div class="group-skills">
+                        <span class="skill-tag">C/C++编程</span>
+                        <span class="skill-tag">嵌入式系统</span>
+                        <span class="skill-tag">PID控制</span>
+                        <span class="skill-tag">算法优化</span>
+                        <span class="skill-tag">数据处理</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>硬件组</h3>
+                </div>
+                <div class="group-body">
+                    <p>负责智能车的硬件设计、制作与调试，包括机械结构与电子电路，是智能车的"身体"。</p>
+                    <h4>主要职责：</h4>
+                    <ul>
+                        <li>设计并制作控制电路板</li>
+                        <li>传感器选型、安装与调试</li>
+                        <li>电机驱动系统搭建</li>
+                        <li>车身结构设计与组装</li>
+                        <li>电源管理与硬件故障排查</li>
+                    </ul>
+                    <div class="group-skills">
+                        <span class="skill-tag">电路设计</span>
+                        <span class="skill-tag">机械结构</span>
+                        <span class="skill-tag">传感器应用</span>
+                        <span class="skill-tag">焊接调试</span>
+                        <span class="skill-tag">3D建模</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-card">
+                <div class="group-header">
+                    <div class="group-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>宣传组</h3>
+                </div>
+                <div class="group-body">
+                    <p>负责实验室的对外宣传、活动记录与文化建设，是实验室的"形象代言人"。</p>
+                    <h4>主要职责：</h4>
+                    <ul>
+                        <li>实验室活动摄影与视频拍摄</li>
+                        <li>宣传文案撰写与新媒体运营</li>
+                        <li>制作竞赛回顾与成果展示材料</li>
+                        <li>设计实验室文化产品与标识</li>
+                        <li>组织技术分享会与科普活动</li>
+                    </ul>
+                    <div class="group-skills">
+                        <span class="skill-tag">摄影摄像</span>
+                        <span class="skill-tag">文案写作</span>
+                        <span class="skill-tag">平面设计</span>
+                        <span class="skill-tag">新媒体运营</span>
+                        <span class="skill-tag">活动策划</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>组别协作机制</h2>
+        <p>三个核心组别通过紧密协作完成实验室各项任务，主要协作方式包括：</p>
+        <ul>
+            <li><i class="fas fa-sync-alt"></i> 每周定期召开跨组协调会，同步项目进展</li>
+            <li><i class="fas fa-sync-alt"></i> 电控组与硬件组共同进行系统联调与优化</li>
+            <li><i class="fas fa-sync-alt"></i> 宣传组全程记录技术研发与竞赛过程，及时传播成果</li>
+            <li><i class="fas fa-sync-alt"></i> 建立共享文档系统，确保信息畅通与知识传承</li>
+            <li><i class="fas fa-sync-alt"></i> 跨组培训机制，促进成员全面发展与理解</li>
+        </ul>
+    </div>
+    <footer>
+        <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
+        <p>浙ICP备2025189316号-1</p>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const themeButton = document.getElementById('theme-button');
+            if (newTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        }
+
+        // 初始化主题
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeButton = document.getElementById('theme-button');
+            if (savedTheme === 'dark') {
+                themeButton.innerHTML = '<i class="fas fa-moon"></i> 暗色';
+            } else {
+                themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
+            }
+        })();
+    </script>
+</body>
+
+</html>
