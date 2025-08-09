@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -49,22 +50,28 @@
         }
 
         header {
-            background: var(--header-bg);
             color: #fff;
-            padding: 2rem 0 1rem;
             text-align: center;
-            box-shadow: var(--shadow);
             position: relative;
+            margin-bottom: 2rem;
+        }
+
+        /* 轮播区域铺满设置 */
+        .full-width-carousel {
+            width: 100%;
+            position: relative;
+            box-shadow: var(--shadow);
         }
 
         header h1 {
             font-size: clamp(2.2rem, 6vw, 3.5rem);
-            /* 增大标题字体 */
             margin: 0;
             padding: 1.5rem 0;
             letter-spacing: 1px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
+            padding: 2rem 5%;
         }
 
         .container {
@@ -87,7 +94,6 @@
             padding-bottom: 0.8rem;
             margin-bottom: 1.8rem;
             font-size: clamp(1.8rem, 5vw, 2.4rem);
-            /* 增大二级标题 */
             font-weight: 600;
             position: relative;
         }
@@ -106,7 +112,6 @@
             margin: 1.2rem 0;
             line-height: 1.8;
             font-size: clamp(1.1rem, 3vw, 1.3rem);
-            /* 增大正文字体 */
         }
 
         ul {
@@ -120,7 +125,6 @@
             padding: 1rem 1.5rem;
             border-left: 5px solid #0078d7;
             font-size: clamp(1.1rem, 3vw, 1.3rem);
-            /* 增大列表字体 */
             border-radius: 0 6px 6px 0;
             transition: var(--transition);
         }
@@ -154,7 +158,6 @@
             border-radius: 6px;
             font-weight: bold;
             font-size: clamp(1.2rem, 3vw, 1.4rem);
-            /* 增大高亮文本 */
             display: inline-block;
             margin: 0.5rem 0;
             border-left: 4px solid #0078d7;
@@ -208,7 +211,6 @@
             color: #fff;
             text-decoration: none;
             font-size: clamp(1.1rem, 3vw, 1.3rem);
-            /* 增大导航字体 */
             transition: var(--transition);
             padding: 0.5rem 0.8rem;
             border-radius: 4px;
@@ -277,43 +279,39 @@
             font-size: 1.1rem;
         }
 
-        /* 图片轮播样式 - 固定为完整显示模式 */
+        /* 图片轮播样式 - 铺满整个宽度 */
         .photo-carousel {
             width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
             overflow: hidden;
             position: relative;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
         }
 
-        /* 响应式高度设置 */
+        /* 响应式高度设置 - 根据屏幕宽度自动调整高度 */
         @media (min-width: 1024px) {
+            .photo-carousel {
+                height: 60vh;
+                max-height: 650px;
+            }
+        }
+
+        @media (max-width: 1023px) and (min-width: 768px) {
             .photo-carousel {
                 height: 50vh;
                 max-height: 550px;
             }
         }
 
-        @media (max-width: 1023px) and (min-width: 768px) {
+        @media (max-width: 767px) and (min-width: 480px) {
             .photo-carousel {
                 height: 45vh;
                 max-height: 450px;
             }
         }
 
-        @media (max-width: 767px) and (min-width: 480px) {
+        @media (max-width: 479px) {
             .photo-carousel {
                 height: 40vh;
                 max-height: 380px;
-            }
-        }
-
-        @media (max-width: 479px) {
-            .photo-carousel {
-                height: 35vh;
-                max-height: 320px;
             }
         }
 
@@ -329,17 +327,12 @@
             position: relative;
         }
 
-        /* 固定为完整显示模式 */
+        /* 图片铺满整个轮播区域 */
         .carousel-item img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
-            background-color: #f0f0f0;
-        }
-
-        [data-theme="dark"] .carousel-item img {
-            background-color: #2a2a2a;
         }
 
         .carousel-caption {
@@ -355,14 +348,12 @@
 
         .carousel-caption h3 {
             font-size: clamp(1.3rem, 4vw, 1.8rem);
-            /* 增大轮播标题 */
             margin: 0 0 0.5rem 0;
             font-weight: 600;
         }
 
         .carousel-caption p {
             font-size: clamp(1rem, 3vw, 1.2rem);
-            /* 增大轮播描述 */
             margin: 0;
             line-height: 1.6;
         }
@@ -427,7 +418,7 @@
             transform: scale(1.4);
         }
 
-        /* 轮播控制选项 - 只保留播放/暂停按钮 */
+        /* 轮播控制选项 */
         .carousel-controls {
             position: absolute;
             top: clamp(0.5rem, 2vw, 1rem);
@@ -514,59 +505,54 @@
         <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
         <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
         <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+        <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
     </nav>
     <header>
-        <div class="photo-carousel" id="photoCarousel">
-            <div class="carousel-inner">
-                <!-- 轮播项1 -->
-                <div class="carousel-item">
-                    <img src="https://pic1.imgdb.cn/item/68977cc958cb8da5c8158e84.jpg" alt="帅气的zyz学长">
-                    <div class="carousel-caption">
-                        <h3>实验室成员日常研发</h3>
-                        <p>团队成员正在调试智能车控制系统</p>
+        <!-- 轮播区域改为全屏宽度 -->
+        <div class="full-width-carousel">
+            <div class="photo-carousel" id="photoCarousel">
+                <div class="carousel-inner">
+                    <!-- 轮播项1 -->
+                    <div class="carousel-item">
+                        <img src="index/省赛前合照.jpg" alt="省赛前合照">
+                        <div class="carousel-caption">
+                            <h3>省赛前合照</h3>
+                            <p></p>
+                        </div>
+                    </div>
+
+                    <!-- 轮播项2 -->
+                    <div class="carousel-item">
+                        <img src="index/省赛后合照.jpg" alt="省赛后合照">
+                        <div class="carousel-caption">
+                            <h3>省赛后合照</h3>
+                            <p></p>
+                        </div>
+                    </div>
+
+                    <!-- 轮播项3 -->
+                    <div class="carousel-item">
+                        <img src="index/省赛后科协合照.jpg" alt="省赛后科协合照">
+                        <div class="carousel-caption">
+                            <h3>省赛后科协合照</h3>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 轮播项2 -->
-                <div class="carousel-item">
-                    <img src="https://picsum.photos/id/180/1000/400" alt="智能车竞赛现场">
-                    <div class="carousel-caption">
-                        <h3>全国智能车竞赛现场</h3>
-                        <p>我校代表队在全国总决赛中表现优异</p>
-                    </div>
+                <!-- 轮播控制按钮 -->
+                <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+                <button class="carousel-control next" onclick="nextSlide()">❯</button>
+
+                <!-- 轮播指示器 -->
+                <div class="carousel-indicators" id="indicators"></div>
+
+                <!-- 轮播控制选项 -->
+                <div class="carousel-controls">
+                    <button class="carousel-control-btn" onclick="togglePlay()" id="playButton">
+                        <span id="playIcon"><i class="fas fa-pause"></i></span> 暂停
+                    </button>
                 </div>
-
-                <!-- 轮播项3 -->
-                <div class="carousel-item">
-                    <img src="https://picsum.photos/id/160/1000/400" alt="实验室设备">
-                    <div class="carousel-caption">
-                        <h3>先进的研发设备</h3>
-                        <p>实验室配备多种先进的智能车研发设备</p>
-                    </div>
-                </div>
-
-                <!-- 轮播项4 -->
-                <div class="carousel-item">
-                    <img src="https://picsum.photos/id/96/1000/400" alt="团队合影">
-                    <div class="carousel-caption">
-                        <h3>ASC实验室团队合影</h3>
-                        <p>2024届实验室核心成员合影</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 轮播控制按钮 -->
-            <button class="carousel-control prev" onclick="prevSlide()">❮</button>
-            <button class="carousel-control next" onclick="nextSlide()">❯</button>
-
-            <!-- 轮播指示器 -->
-            <div class="carousel-indicators" id="indicators"></div>
-
-            <!-- 轮播控制选项 - 只保留播放/暂停按钮 -->
-            <div class="carousel-controls">
-                <button class="carousel-control-btn" onclick="togglePlay()" id="playButton">
-                    <span id="playIcon"><i class="fas fa-pause"></i></span> 暂停
-                </button>
             </div>
         </div>
         <h1>欢迎关注ASC智能车实验室</h1>
@@ -579,7 +565,7 @@
     <div class="container" id="spirit">
         <h2><i class="fas fa-heart"></i> 实验室精神</h2>
         <p>我们秉承<span
-                class="highlight">“Adventure（探索）、Cooperation（合作）、Success（成功）”</span>的精神，鼓励大家勇敢探索技术边界，在合作中共同成长，最终收获属于自己的成功。
+                class="highlight">“Adventure（探索）、Success（成功）、Cooperation（合作）”</span>的精神，鼓励大家勇敢探索技术边界，在合作中共同成长，最终收获属于自己的成功。
         </p>
     </div>
     <div class="container" id="groups">
@@ -737,8 +723,6 @@
         // 页面加载完成后初始化
         window.addEventListener('load', initCarousel);
     </script>
-
-
 </body>
 
 </html>
