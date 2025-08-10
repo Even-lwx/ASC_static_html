@@ -14,9 +14,10 @@
             --container-bg: #fff;
             --footer-bg: #333;
             --highlight-bg: #e8f4fc;
-            --quote-bg: #f0f7ff;
-            --transition: all 0.3s ease;
+            --card-bg: #f9f9f9;
+            --card-hover: #f0f7ff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
@@ -26,7 +27,8 @@
             --container-bg: #1e1e1e;
             --footer-bg: #1e1e1e;
             --highlight-bg: #2a2a2a;
-            --quote-bg: #1a202c;
+            --card-bg: #2c2c2c;
+            --card-hover: #384b63;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -47,24 +49,33 @@
         header {
             background: var(--header-bg);
             color: #fff;
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         header h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
             margin: 0;
+            padding: 1.5rem 0;
             letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 3rem auto;
             padding: 2.5rem;
             background: var(--container-bg);
             border-radius: 12px;
             box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
@@ -72,7 +83,7 @@
             border-bottom: 3px solid #0078d7;
             padding-bottom: 0.8rem;
             margin-bottom: 1.8rem;
-            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
             font-weight: 600;
             position: relative;
         }
@@ -88,9 +99,9 @@
         }
 
         h3 {
-            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
             margin: 1.5rem 0 1rem;
-            color: #0078d7;
+            color: #0053a6;
         }
 
         p {
@@ -112,10 +123,33 @@
             border-left: 5px solid #0078d7;
             font-size: clamp(1.1rem, 3vw, 1.3rem);
             border-radius: 0 6px 6px 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        ul li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="dark"] ul li {
             background: #2c2c2c;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--footer-bg);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
         }
 
         .highlight {
@@ -123,14 +157,16 @@
             padding: 0.6rem 1rem;
             border-radius: 6px;
             font-weight: bold;
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
             display: inline-block;
             margin: 0.5rem 0;
             border-left: 4px solid #0078d7;
         }
 
+        /* 主题切换按钮 - 右下角位置 */
         .theme-toggle {
             position: fixed;
-            top: 1rem;
+            bottom: 1rem;
             right: 1rem;
             background: var(--header-bg);
             color: #fff;
@@ -140,10 +176,20 @@
             cursor: pointer;
             font-size: 1rem;
             box-shadow: var(--shadow);
+            transition: var(--transition);
             z-index: 1001;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: #0053a6;
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
         }
 
         nav {
@@ -166,13 +212,18 @@
             color: #fff;
             text-decoration: none;
             font-size: clamp(1.1rem, 3vw, 1.3rem);
+            transition: var(--transition);
             padding: 0.5rem 0.8rem;
             border-radius: 4px;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         nav a:hover {
             color: #ffdd57;
+            transform: scale(1.05);
             background: rgba(255, 255, 255, 0.1);
         }
 
@@ -181,143 +232,80 @@
             font-weight: bold;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            background: var(--footer-bg);
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .spirit-grid {
+        /* 卡片容器 - 并排展示 */
+        .cards-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin: 3rem 0;
         }
 
-        .spirit-item {
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: var(--highlight-bg);
-            border-radius: 10px;
+        /* 高级卡片样式 */
+        .spirit-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
             box-shadow: var(--shadow);
-            transition: var(--transition);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .spirit-item:hover {
+        .spirit-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #0078d7, #0053a6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .spirit-card:hover:before {
+            transform: scaleX(1);
+        }
+
+        .spirit-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: var(--card-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .spirit-icon {
+        .spirit-card .card-icon {
             font-size: 3rem;
             color: #0078d7;
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
         }
 
-        .spirit-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        .spirit-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .spirit-card h3 {
             color: #0053a6;
-        }
-
-        .quote {
-            background: var(--quote-bg);
-            border-left: 5px solid #0078d7;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.2rem;
             position: relative;
+            padding-bottom: 0.8rem;
         }
 
-        .quote-text {
-            font-style: italic;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .quote-author {
-            text-align: right;
-            font-weight: bold;
-            color: #0053a6;
-        }
-
-        .history-timeline {
-            position: relative;
-            margin: 3rem 0;
-            padding-left: 2rem;
-        }
-
-        .history-timeline:before {
+        .spirit-card h3:after {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
             bottom: 0;
-            width: 4px;
+            left: 0;
+            width: 50px;
+            height: 2px;
             background: #0078d7;
-            border-radius: 4px;
         }
 
-        .history-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-        }
-
-        .history-item:before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 0.5rem;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #fff;
-            border: 4px solid #0078d7;
-        }
-
-        .history-year {
-            font-weight: bold;
-            color: #0053a6;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .activity-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .activity-item {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .activity-item:hover {
-            transform: scale(1.05);
-        }
-
-        .activity-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .activity-info {
-            padding: 1rem;
-            background: var(--highlight-bg);
-        }
-
-        .activity-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #0053a6;
+        /* 响应式调整 */
+        @media (max-width: 992px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -331,6 +319,15 @@
                 padding: 1.8rem;
                 margin: 2rem auto;
             }
+
+            h2 {
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.6rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -343,152 +340,88 @@
                 font-size: 1rem;
                 padding: 0.4rem 0.6rem;
             }
+
+            header h1 {
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <button class="theme-toggle" onclick="toggleTheme()" id="theme-button">
+    <!-- 主题切换按钮在右下角 -->
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
         <i class="fas fa-sun"></i> 亮色
     </button>
-<nav>
-      <!-- 添加logo图片，点击返回首页 -->
-    <a href="index.html" class="logo">
-        <img src="index/logo.png" alt="ASC智能车实验室logo" style="height: 2.5rem; width: auto;">
-    </a>
-    <a href="index.html"><i class="fas fa-home"></i> 主页</a>
-    <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
-    <a href="spirit.html" class="active"><i class="fas fa-lightbulb"></i> 实验室精神</a>
-    <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
-    <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
-</nav>
-    <header>
-        <h1>ASC智能车实验室 - 实验室精神</h1>
-    </header>
-    <div class="container">
-        <h2><i class="fas fa-lightbulb"></i> 实验室核心理念</h2>
-        <p>ASC智能车实验室的名称源自三个核心词汇的首字母：<span
-                class="highlight">Adventure（探索）、Cooperation（合作）、Success（成功）</span>。这三个词不仅是我们的名称，更是我们实验室文化的基石和全体成员的行为准则。
-        </p>
 
-        <div class="spirit-grid">
-            <div class="spirit-item">
-                <div class="spirit-icon">
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="index/logo.png" alt="ASC智能车实验室logo" style="height: 2.5rem; width: auto;">
+        </a>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html" class="active"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+        <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
+    </nav>
+
+    <header>
+        <h1><i class="fas fa-lightbulb"></i> 实验室精神</h1>
+    </header>
+
+    <div class="container">
+        <h2>我们的核心理念</h2>
+        <p class="highlight">ASC智能车实验室秉承创新、协作、卓越的核心精神，致力于培养具有实践能力和创新思维的优秀人才，在智能车领域不断探索与突破。</p>
+
+        <h3>实验室的精神内涵</h3>
+        <p>自实验室成立以来，我们始终坚持以技术创新为驱动，以团队协作为基础，以追求卓越为目标。这些精神不仅体现在我们的日常学习和研发中，更融入到每一个成员的成长历程中。</p>
+
+        <h3>探索、成功、合作</h3>
+        <p>这三个关键词构成了我们实验室文化的基石，也是我们培养人才的三个重要维度：</p>
+
+        <!-- 并排卡片容器 -->
+        <div class="cards-container">
+            <!-- 探索卡片 -->
+            <div class="spirit-card">
+                <div class="card-icon">
                     <i class="fas fa-compass"></i>
                 </div>
-                <div class="spirit-title">探索 (Adventure)</div>
-                <p>勇于探索未知领域，敢于挑战技术难题，保持好奇心和求知欲，不断突破自我极限。</p>
+                <h3>探索未知</h3>
+                <p>我们鼓励成员勇于尝试新的技术和方法，不畏惧失败，在探索中积累经验、增长见识。实验室提供开放的环境和充足的资源，支持每一个创新想法的实践。</p>
+                <p>从算法优化到硬件改造，从控制系统到图像识别，我们不断挑战自我，探索智能车技术的无限可能。</p>
             </div>
-            <div class="spirit-item">
-                <div class="spirit-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <div class="spirit-title">合作 (Cooperation)</div>
-                <p>相信团队的力量大于个体之和，乐于分享知识与经验，在协作中互相学习、共同进步。</p>
-            </div>
-            <div class="spirit-item">
-                <div class="spirit-icon">
+
+            <!-- 成功卡片 -->
+            <div class="spirit-card">
+                <div class="card-icon">
                     <i class="fas fa-trophy"></i>
                 </div>
-                <div class="spirit-title">成功 (Success)</div>
-                <p>以解决问题为导向，追求卓越的技术成果，享受从无到有的创造过程，定义自己的成功。</p>
+                <h3>追求成功</h3>
+                <p>成功不仅是竞赛中的获奖，更是技术上的突破和个人能力的提升。我们定义的成功是每一个小目标的达成，每一次问题的解决，每一步的成长与进步。</p>
+                <p>通过明确的目标设定、科学的计划制定和高效的执行落实，我们帮助每个成员实现自己的成功，收获成就感和自信心。</p>
             </div>
-        </div>
 
-        <h2><i class="fas fa-book"></i> 实验室文化</h2>
-        <h3>我们的价值观</h3>
-        <ul>
-            <li><strong>创新为本</strong>：鼓励大胆尝试，容忍失败，从错误中学习，不断推陈出新</li>
-            <li><strong>精益求精</strong>：对每一个细节精益求精，追求卓越品质，不满足于"差不多"</li>
-            <li><strong>开放共享</strong>：知识、经验和资源开放共享，共同提升团队整体水平</li>
-            <li><strong>教学相长</strong>：高年级带低年级，经验丰富者帮助新手，形成良性循环</li>
-            <li><strong>坚持不懈</strong>：面对困难不退缩，持之以恒，相信办法总比困难多</li>
-        </ul>
-
-        <h3>实验室口号</h3>
-        <div class="quote">
-            <div class="quote-text">"探索未知，合作共赢，铸就成功"</div>
-            <div class="quote-author">— ASC智能车实验室全体成员</div>
-        </div>
-
-        <h3>成员寄语</h3>
-        <div class="quote">
-            <div class="quote-text">"在ASC的一年，不仅学到了技术，更重要的是学会了如何与团队协作解决复杂问题，这种能力将让我受益终身。"</div>
-            <div class="quote-author">— 2023届毕业生 王同学</div>
-        </div>
-
-        <div class="quote">
-            <div class="quote-text">"实验室的氛围非常好，学长们耐心指导，同学间互相帮助，在这里我找到了对技术的热情和归属感。"</div>
-            <div class="quote-author">— 2024级成员 李同学</div>
-        </div>
-
-        <h2><i class="fas fa-history"></i> 实验室发展历程</h2>
-        <div class="history-timeline">
-            <div class="history-item">
-                <div class="history-year">2015年</div>
-                <h4>实验室成立</h4>
-                <p>ASC智能车实验室正式成立，初期仅有5名成员，首次参加全国大学生智能汽车竞赛便获得省级二等奖。</p>
-            </div>
-            <div class="history-item">
-                <div class="history-year">2017年</div>
-                <h4>首次突破</h4>
-                <p>实验室规模扩大到20人，首次获得全国大学生智能汽车竞赛全国总决赛二等奖，奠定了发展基础。</p>
-            </div>
-            <div class="history-item">
-                <div class="history-year">2019年</div>
-                <h4>快速发展</h4>
-                <p>实验室迁至新址，面积扩大到200平方米，成员增至50人，获得多项省级一等奖，开始在省内崭露头角。</p>
-            </div>
-            <div class="history-item">
-                <div class="history-year">2021年</div>
-                <h4>全国夺冠</h4>
-                <p>首次获得全国大学生智能汽车竞赛全国总决赛一等奖，实验室影响力进一步扩大。</p>
-            </div>
-            <div class="history-item">
-                <div class="history-year">2023年</div>
-                <h4>多元发展</h4>
-                <p>成员规模超过80人，增设AI组别，开始探索人工智能在智能车中的应用，全年获得国家级奖项8项。</p>
-            </div>
-        </div>
-
-        <h2><i class="fas fa-calendar-alt"></i> 实验室活动</h2>
-        <p>实验室定期举办各类活动，丰富成员的学习和生活，促进交流与成长：</p>
-
-        <div class="activity-gallery">
-            <div class="activity-item">
-                <img src="https://picsum.photos/id/26/500/300" alt="技术分享会">
-                <div class="activity-info">
-                    <div class="activity-title">技术分享会</div>
-                    <div class="activity-desc">每周举办，成员分享技术心得和学习成果</div>
+            <!-- 合作卡片 -->
+            <div class="spirit-card">
+                <div class="card-icon">
+                    <i class="fas fa-handshake"></i>
                 </div>
-            </div>
-            <div class="activity-item">
-                <img src="https://picsum.photos/id/48/500/300" alt="新生培训营">
-                <div class="activity-info">
-                    <div class="activity-title">新生培训营</div>
-                    <div class="activity-desc">针对新成员的集中培训，快速提升基础能力</div>
-                </div>
-            </div>
-            <div class="activity-item">
-                <img src="https://picsum.photos/id/106/500/300" alt="校际交流">
-                <div class="activity-info">
-                    <div class="activity-title">校际交流</div>
-                    <div class="activity-desc">与其他高校实验室进行技术交流和友好比赛</div>
-                </div>
+                <h3>协作共赢</h3>
+                <p>智能车研发是一项系统工程，需要不同专业背景的成员通力合作。我们强调团队精神，培养成员的沟通能力和协作意识，让每个人在团队中发挥最大价值。</p>
+                <p>从组内讨论到跨组协作，从经验分享到技术互助，合作精神贯穿实验室活动的始终，让我们共同成长、共同进步。</p>
             </div>
         </div>
 
-        <h2><i class="fas fa-graduation-cap"></i> 成员成长与收获</h2>
-        <p>实验室不仅是技术研发的场所，更是人才培养的摇篮。多年来，从ASC走出的成员在各个领域都取得了优异成绩：</p>
-        <ul>
-            <li>多名成员获得国家奖学金、校级优秀学生等荣誉</li>
-            <li>毕业生多进入国内外知名高校深造，包括清华大学、浙江大学、哈尔滨工业大学等</li>
-            <li>不少成员入职华为、阿里巴巴、腾讯、百度等知名企业</li>
-            <li>部分成员选择自主创业，在智能硬件、机器人等领域取得成就</li>
-            <li>无论走向何方，ASC成员都保持着探索创新、合作共赢的精神</li>
-        </ul>
+        <h3>实验室的使命与愿景</h3>
+        <p>我们致力于成为智能车领域人才培养的重要基地，为学生提供实践创新的平台，培养具有扎实专业知识、卓越实践能力和团队协作精神的高素质人才。</p>
+        <p>同时，我们希望通过技术创新和成果转化，为智能车技术的发展贡献力量，推动相关领域的进步与应用。</p>
     </div>
+
     <footer>
         <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
         <p>浙ICP备2025189316号-1</p>
