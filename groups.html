@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>实验室组别 - ASC智能车实验室</title>
-     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -149,33 +149,33 @@
             border-left: 4px solid #0078d7;
         }
 
-       .theme-toggle {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background: var(--header-bg);
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--header-bg);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-.theme-toggle:hover {
-    background: #0053a6;
-    transform: scale(1.1);
-}
+        .theme-toggle:hover {
+            background: #0053a6;
+            transform: scale(1.1);
+        }
 
-.theme-toggle:active {
-    transform: scale(0.95);
-}
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
 
         nav {
             background: var(--header-bg);
@@ -244,6 +244,7 @@
             font-size: 1rem;
             transition: var(--transition);
             font-weight: 500;
+            margin: 0 0.5rem;
         }
 
         button:hover {
@@ -254,40 +255,6 @@
 
         button:active {
             transform: scale(0.95);
-        }
-
-        .sidebar {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            width: auto;
-            background: #333;
-            color: #fff;
-            padding: 0.8rem;
-            box-shadow: var(--shadow);
-            border-radius: 10px;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .sidebar:hover {
-            transform: translateY(-5px);
-        }
-
-        .sidebar h2 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            color: rgb(90, 150, 225);
-            border-bottom: 2px solid blue;
-            padding-bottom: 0.3rem;
-        }
-
-        .sidebar button {
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1.1rem;
         }
 
         /* 组别轮播样式 - 最多显示两个卡片 */
@@ -430,7 +397,98 @@
             transform: scale(1.4);
         }
 
-        /* 响应式设计 - 小屏幕只显示一个卡片 */
+        /* 预览卡片样式 - 全屏显示 */
+        .preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .preview-overlay.active {
+            display: flex;
+        }
+
+        .preview-card {
+            width: 100vw;
+            /* 宽度占满整个视口 */
+            height: 100vh;
+            /* 高度占满整个视口 */
+            background: var(--card-bg);
+            border-radius: 0;
+            /* 无边框圆角 */
+            box-shadow: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            background: var(--header-bg);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .preview-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .close-preview {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .preview-content {
+            flex: 1;
+            height: 0;
+            min-height: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .preview-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            z-index: 10;
+        }
+
+        /* 响应式设计 */
         @media (max-width: 991px) {
             .group-card {
                 min-width: 100%;
@@ -472,6 +530,23 @@
                 height: 40px;
                 font-size: 1rem;
             }
+
+            .action-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                max-width: 200px;
+            }
+
+            button {
+                width: 100%;
+                margin: 0;
+            }
+
+            .preview-header h3 {
+                font-size: 1.2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -505,9 +580,26 @@
 </head>
 
 <body>
-<button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
-    <i class="fas fa-sun"></i> 亮色
-</button>
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
+        <i class="fas fa-sun"></i> 亮色
+    </button>
+
+    <!-- 预览卡片 -->
+    <div class="preview-overlay" id="previewOverlay">
+        <div class="preview-card">
+            <div class="preview-header">
+                <h3 id="previewTitle">组别详情预览</h3>
+                <button class="close-preview" onclick="closePreview()">×</button>
+            </div>
+            <div class="preview-content">
+                <div class="preview-loading" id="loadingIndicator">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                </div>
+                <iframe class="preview-iframe" id="previewFrame"></iframe>
+            </div>
+        </div>
+    </div>
+
     <nav>
         <a href="index.html" class="logo">
             <img src="index/logo.png" alt="ASC智能车实验室logo">
@@ -548,7 +640,10 @@
                                 <li><i class="fas fa-sliders-h"></i> 系统调试与参数优化</li>
                             </ul>
 
-                            <button onclick="showMore('electrical')">了解更多</button>
+                            <div class="action-buttons">
+                                <button onclick="previewGroup('electrical')">预览详情</button>
+                                <button onclick="openGroupLink('electrical')">前往详情页</button>
+                            </div>
                         </div>
                     </div>
 
@@ -568,14 +663,17 @@
                                 <li><i class="fas fa-temperature-high"></i> 可靠性与稳定性测试</li>
                             </ul>
 
-                            <button onclick="showMore('hardware')">了解更多</button>
+                            <div class="action-buttons">
+                                <button onclick="previewGroup('hardware')">预览详情</button>
+                                <button onclick="openGroupLink('hardware')">前往详情页</button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 宣传组 -->
+                    <!-- 运营组 -->
                     <div class="group-card" data-index="2">
                         <div class="card-content">
-                            <img src="groups/propaganda.jpg" alt="宣传组工作场景" class="group-image">
+                            <img src="groups/propaganda.jpg" alt="运营组工作场景" class="group-image">
                             <h3>运营组</h3>
                             <p>运营组是实验室的"窗口"，负责实验室的对外宣传与形象塑造，记录实验室的成长历程，包括团队宣传、活动布置与对接协调、发票管理、物资采购与管理等。</p>
 
@@ -588,7 +686,10 @@
                                 <li><i class="fas fa-share-alt"></i> 社交媒体运营与推广</li>
                             </ul>
 
-                            <button onclick="showMore('propaganda')">了解更多</button>
+                            <div class="action-buttons">
+                                <button onclick="previewGroup('operation')">预览详情</button>
+                                <button onclick="openGroupLink('operation')">前往详情页</button>
+                            </div>
                         </div>
                     </div>
 
@@ -608,7 +709,10 @@
                                 <li><i class="fas fa-sliders-h"></i> 系统调试与参数优化</li>
                             </ul>
 
-                            <button onclick="showMore('electrical')">了解更多</button>
+                            <div class="action-buttons">
+                                <button onclick="previewGroup('electrical')">预览详情</button>
+                                <button onclick="openGroupLink('electrical')">前往详情页</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -659,21 +763,17 @@
             }
         })();
 
-        // 组别轮播功能 - 最多显示两个卡片且宣传组无缝循环到电控组
-        let currentIndex = 0; // 当前显示的第一个卡片索引
+        // 组别轮播功能
+        let currentIndex = 0;
         const track = document.getElementById('carouselTrack');
-        const cards = document.querySelectorAll('.group-card');
         const indicators = document.querySelectorAll('.carousel-indicator');
-        const totalUniqueSlides = 3; // 实际独特的组别数量
+        const totalUniqueSlides = 3;
         let isTransitioning = false;
 
-        // 更新轮播位置
         function updateSlidePosition() {
-            // 计算位移百分比（每张卡片占50%宽度）
             const offset = currentIndex * 50;
             track.style.transform = `translateX(-${offset}%)`;
 
-            // 更新指示器状态
             const activeIndicator = currentIndex % totalUniqueSlides;
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === activeIndicator);
@@ -682,25 +782,17 @@
             isTransitioning = false;
         }
 
-        // 下一张
         function nextSlide() {
             if (isTransitioning) return;
             isTransitioning = true;
-
-            // 当当前是最后一个有效索引（宣传组），下一张是复制的电控组
-            // 之后会在动画完成后重置索引，实现无缝循环
             currentIndex++;
 
-            // 当滚动到复制的电控组后，重置索引实现无缝循环
             if (currentIndex === totalUniqueSlides) {
                 updateSlidePosition();
-                // 等待动画完成后重置
                 setTimeout(() => {
-                    // 关闭动画效果
                     track.style.transition = 'none';
                     currentIndex = 0;
                     updateSlidePosition();
-                    // 重新开启动画效果
                     setTimeout(() => {
                         track.style.transition = 'transform 0.5s ease-in-out';
                     }, 50);
@@ -710,19 +802,14 @@
             }
         }
 
-        // 上一张
         function prevSlide() {
             if (isTransitioning) return;
             isTransitioning = true;
 
-            // 如果当前是第一个索引，上一张是最后一个有效索引（宣传组）
             if (currentIndex === 0) {
-                // 先关闭动画，跳转到复制的电控组位置
                 track.style.transition = 'none';
                 currentIndex = totalUniqueSlides;
                 updateSlidePosition();
-
-                // 然后开启动画，滚动到宣传组
                 setTimeout(() => {
                     track.style.transition = 'transform 0.5s ease-in-out';
                     currentIndex = totalUniqueSlides - 1;
@@ -734,34 +821,91 @@
             }
         }
 
-        // 跳转到指定幻灯片
         function goToSlide(index) {
             if (isTransitioning) return;
             isTransitioning = true;
-
             currentIndex = index;
             updateSlidePosition();
         }
 
-        // 了解更多功能
-        function showMore(group) {
-            const groupInfo = {
-                electrical: "电控组深入学习PID控制、卡尔曼滤波、路径规划等算法，使用C/C++语言进行嵌入式开发，主要使用STM32系列单片机作为主控制器。",
-                hardware: "硬件组学习Altium Designer等电路设计软件，掌握各类传感器、电机驱动模块的应用，能够独立完成智能车硬件系统的设计与调试。",
-                propaganda: "宣传组学习Photoshop、Premiere等设计剪辑软件，负责实验室微信公众号、B站等平台的运营，记录实验室的日常训练与比赛历程。"
+        // 组别链接和标题
+        const groupData = {
+            electrical: {
+                title: "电控组详情",
+                url: "https://hdusmartcar.feishu.cn/docx/UjCjdDHJvozQWqxb1fjcLeeQnDd"
+            },
+            hardware: {
+                title: "硬件组详情",
+                url: "https://hdusmartcar.feishu.cn/wiki/OUeawEa6jiUqe0kcVPPcsl7znad"
+            },
+            operation: {
+                title: "运营组详情",
+                url: "https://hdusmartcar.feishu.cn/docx/UXHcdkNDyoiN4fxUbi7cKXZkn4c"
+            }
+        };
+
+        // 打开组别链接
+        function openGroupLink(group) {
+            window.open(groupData[group].url, '_blank');
+        }
+
+        // 预览组别详情
+        function previewGroup(group) {
+            const previewOverlay = document.getElementById('previewOverlay');
+            const previewTitle = document.getElementById('previewTitle');
+            const previewFrame = document.getElementById('previewFrame');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            // 更新标题
+            previewTitle.textContent = groupData[group].title;
+
+            // 显示加载状态
+            loadingIndicator.style.display = 'flex';
+
+            // 设置iframe源
+            previewFrame.src = groupData[group].url;
+
+            // 显示预览层
+            previewOverlay.classList.add('active');
+
+            // 当iframe加载完成后隐藏加载状态
+            previewFrame.onload = function () {
+                loadingIndicator.style.display = 'none';
             };
 
-            alert(groupInfo[group]);
+            // 阻止页面滚动
+            document.body.style.overflow = 'hidden';
         }
+
+        // 关闭预览
+        function closePreview() {
+            const previewOverlay = document.getElementById('previewOverlay');
+            previewOverlay.classList.remove('active');
+
+            // 恢复页面滚动
+            document.body.style.overflow = '';
+        }
+
+        // 点击预览层背景关闭预览
+        document.getElementById('previewOverlay').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closePreview();
+            }
+        });
+
+        // 按ESC键关闭预览
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && document.getElementById('previewOverlay').classList.contains('active')) {
+                closePreview();
+            }
+        });
 
         // 窗口大小改变时重新计算
         window.addEventListener('resize', () => {
             if (!isTransitioning) {
-                // 临时关闭动画
                 const transition = track.style.transition;
                 track.style.transition = 'none';
                 updateSlidePosition();
-                // 重新开启动画
                 setTimeout(() => {
                     track.style.transition = transition;
                 }, 50);
