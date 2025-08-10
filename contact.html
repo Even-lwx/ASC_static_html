@@ -14,6 +14,8 @@
             --container-bg: #fff;
             --footer-bg: #333;
             --highlight-bg: #e8f4fc;
+            --card-bg: #f9f9f9;
+            --card-hover: #f0f7ff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
@@ -25,6 +27,8 @@
             --container-bg: #1e1e1e;
             --footer-bg: #1e1e1e;
             --highlight-bg: #2a2a2a;
+            --card-bg: #2c2c2c;
+            --card-hover: #384b63;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -110,6 +114,7 @@
         ul {
             list-style: none;
             padding: 0;
+            padding: 0;
             margin: 1.5rem 0;
         }
 
@@ -162,7 +167,7 @@
 
         .theme-toggle {
             position: fixed;
-            top: 1rem;
+            bottom: 1rem;
             right: 1rem;
             background: var(--header-bg);
             color: #fff;
@@ -248,40 +253,6 @@
 
         button:active {
             transform: scale(0.95);
-        }
-
-        .sidebar {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            width: auto;
-            background: #333;
-            color: #fff;
-            padding: 0.8rem;
-            box-shadow: var(--shadow);
-            border-radius: 10px;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .sidebar:hover {
-            transform: translateY(-5px);
-        }
-
-        .sidebar h2 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            color: rgb(90, 150, 225);
-            border-bottom: 2px solid blue;
-            padding-bottom: 0.3rem;
-        }
-
-        .sidebar button {
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1.1rem;
         }
 
         .contact-container {
@@ -440,12 +411,11 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>主题切换</h2>
-        <button onclick="toggleTheme()" id="theme-button">
-            <i class="fas fa-sun"></i> 亮色
-        </button>
-    </div>
+    <!-- 主题切换按钮 -->
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
+        <i class="fas fa-sun"></i> 亮色
+    </button>
+
     <nav>
         <!-- 添加logo图片，点击返回首页 -->
         <a href="index.html" class="logo">
@@ -488,7 +458,7 @@
                         <i class="fas fa-weixin contact-icon"></i>
                         <span>微信公众号：ASC智能车实验室</span>
                     </li>
-                   
+
                 </ul>
 
                 <h3>扫码关注/加入</h3>

@@ -14,6 +14,8 @@
             --container-bg: #fff;
             --footer-bg: #333;
             --highlight-bg: #e8f4fc;
+            --card-bg: #f9f9f9;
+            --card-hover: #f0f7ff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
@@ -25,6 +27,8 @@
             --container-bg: #1e1e1e;
             --footer-bg: #1e1e1e;
             --highlight-bg: #2a2a2a;
+            --card-bg: #2c2c2c;
+            --card-hover: #384b63;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -40,7 +44,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.8;
             padding-top: 60px;
-            /* 为固定导航栏留出空间 */
         }
 
         header {
@@ -62,7 +65,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 3rem auto;
             padding: 2.5rem;
             background: var(--container-bg);
@@ -121,6 +124,9 @@
             font-size: clamp(1.1rem, 3vw, 1.3rem);
             border-radius: 0 6px 6px 0;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         ul li:hover {
@@ -130,20 +136,6 @@
 
         [data-theme="dark"] ul li {
             background: #2c2c2c;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem 0;
-            background: var(--footer-bg);
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        footer p {
-            margin: 0.5rem 0;
-            font-size: 1rem;
         }
 
         .highlight {
@@ -157,9 +149,10 @@
             border-left: 4px solid #0078d7;
         }
 
+        /* 主题切换按钮 - 右下角位置 */
         .theme-toggle {
             position: fixed;
-            top: 1rem;
+            bottom: 1rem;
             right: 1rem;
             background: var(--header-bg);
             color: #fff;
@@ -209,6 +202,9 @@
             padding: 0.5rem 0.8rem;
             border-radius: 4px;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         nav a:hover {
@@ -222,103 +218,56 @@
             font-weight: bold;
         }
 
-        button {
-            background-color: #0078d7;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: var(--transition);
-            font-weight: 500;
+        .competition-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
-        button:hover {
-            background-color: #0053a6;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        .sidebar {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            width: auto;
-            background: #333;
-            color: #fff;
-            padding: 0.8rem;
+        .competition-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
             box-shadow: var(--shadow);
-            border-radius: 10px;
-            text-align: center;
             transition: var(--transition);
         }
 
-        .sidebar:hover {
+        .competition-card:hover {
             transform: translateY(-5px);
+            background: var(--card-hover);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
 
-        .sidebar h2 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            color: rgb(90, 150, 225);
-            border-bottom: 2px solid blue;
-            padding-bottom: 0.3rem;
+        .competition-icon {
+            font-size: 2.5rem;
+            color: #0078d7;
+            margin-bottom: 1rem;
         }
 
-        .sidebar button {
-            background: none;
-            border: none;
+        .competition-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--footer-bg);
             color: #fff;
-            cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        .timeline {
-            position: relative;
-            margin: 3rem 0;
-            padding-left: 2rem;
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
         }
 
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: #0078d7;
-            border-radius: 4px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-        }
-
-        .timeline-item:before {
-            content: '';
-            position: absolute;
-            left: -2.4rem;
-            top: 0.5rem;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #fff;
-            border: 4px solid #0078d7;
-            box-shadow: var(--shadow);
-        }
-
-        .timeline-item h3 {
-            margin-top: 0;
-        }
-
-        /* 小屏幕适配 */
         @media (max-width: 768px) {
             nav {
                 justify-content: center;
@@ -329,11 +278,6 @@
             .container {
                 padding: 1.8rem;
                 margin: 2rem auto;
-            }
-
-            h2 {
-                margin-bottom: 1.5rem;
-                padding-bottom: 0.6rem;
             }
         }
 
@@ -360,75 +304,86 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>主题切换</h2>
-        <button onclick="toggleTheme()" id="theme-button">
-            <i class="fas fa-sun"></i> 亮色
-        </button>
-    </div>
-<nav>
-      <!-- 添加logo图片，点击返回首页 -->
-    <a href="index.html" class="logo">
-        <img src="index/logo.png" alt="ASC智能车实验室logo" style="height: 2.5rem; width: auto;">
-    </a>
-    <a href="index.html"><i class="fas fa-home"></i> 主页</a>
-    <a href="intro.html" class="active"><i class="fas fa-info-circle"></i> 竞赛简介</a>
-    <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
-    <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
-    <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
-</nav>
+    <!-- 主题切换按钮 -->
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
+        <i class="fas fa-sun"></i> 亮色
+    </button>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="index/logo.png" alt="ASC智能车实验室logo" style="height: 2.5rem; width: auto;">
+        </a>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html" class="active"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+        <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
+    </nav>
+
     <header>
-        <h1><i class="fas fa-trophy"></i> 全国大学生智能汽车竞赛简介</h1>
+        <h1><i class="fas fa-trophy"></i> 竞赛简介</h1>
     </header>
+
     <div class="container">
-        <h2>竞赛概述</h2>
-        <p class="highlight">全国大学生智能汽车竞赛是由教育部高等学校自动化类专业教学指导委员会主办，中国自动化学会承办的全国性大学生科技创新竞赛。</p>
-        <p>该竞赛以智能汽车为研究对象，是涵盖自动控制、模式识别、传感技术、电子、电气、计算机、机械与汽车工程等多学科的创意性科技竞赛。目的是培养大学生的创新精神和实践能力，促进高等教育教学改革。</p>
+        <h2>智能车竞赛介绍</h2>
+        <p class="highlight">ASC智能车实验室主要参与全国大学生智能车竞赛，这是一项以智能汽车为研究对象的创意性科技竞赛，旨在培养大学生的综合知识运用能力、基本工程实践能力和创新意识。</p>
 
-        <h2>竞赛特点</h2>
-        <ul>
-            <li><i class="fas fa-check-circle"></i> 自主性：参赛队伍需自主设计、制作智能车，包括机械结构、控制系统和软件算法</li>
-            <li><i class="fas fa-check-circle"></i> 实践性：强调理论与实践结合，培养学生的工程实践能力</li>
-            <li><i class="fas fa-check-circle"></i> 创新性：鼓励学生在控制算法、传感器应用等方面进行创新</li>
-            <li><i class="fas fa-check-circle"></i> 团队性：每支参赛队伍由3-5名学生组成，培养团队协作能力</li>
-        </ul>
+        <h3>竞赛宗旨</h3>
+        <p>全国大学生智能车竞赛以"立足培养，重在参与，鼓励探索，追求卓越"为指导思想，旨在促进高等学校素质教育，培养大学生的综合知识运用能力、基本工程实践能力和创新意识，激发大学生从事科学研究与探索的兴趣和潜能。</p>
 
-        <h2>竞赛组别</h2>
-        <p>竞赛设置多个组别，满足不同兴趣和专业背景的学生参与：</p>
-        <ul>
-            <li><i class="fas fa-flag"></i> 基础四轮组：使用指定电机和电池，考察基本控制能力</li>
-            <li><i class="fas fa-flag"></i> 直立两轮组：挑战性更高，需要平衡控制算法</li>
-            <li><i class="fas fa-flag"></i> 麦克纳姆轮组：可实现全向移动，考察复杂运动控制</li>
-            <li><i class="fas fa-flag"></i> 视觉组：使用摄像头识别赛道，考察图像处理能力</li>
-            <li><i class="fas fa-flag"></i> 电磁组：通过电磁感应识别赛道，考察传感器应用</li>
-        </ul>
-
-        <h2>竞赛历程</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <h3>每年5-6月：校赛</h3>
-                <p>各高校内部选拔，确定参加省赛的队伍</p>
+        <h3>主要竞赛项目</h3>
+        <div class="competition-types">
+            <div class="competition-card">
+                <div class="competition-icon">
+                    <i class="fas fa-road"></i>
+                </div>
+                <h3>基础四轮组</h3>
+                <p>该组别要求参赛队伍设计并制作一辆能够自主识别路径的四轮智能车，完成规定赛道的自主行驶。重点考察参赛者对传感器应用、控制系统设计和路径规划算法的掌握。</p>
+                <img src="intro/4wheel.jpg" alt="基础四轮组智能车" class="competition-image">
             </div>
-            <div class="timeline-item">
-                <h3>每年7-8月：省赛/分区赛</h3>
-                <p>各省市或分区进行比赛，优胜队伍晋级全国总决赛</p>
+
+            <div class="competition-card">
+                <div class="competition-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>机器人创意组</h3>
+                <p>该组别鼓励参赛者发挥创新思维，设计具有特定功能的智能机器人。比赛不限制机器人的结构形式和控制方式，重点考察作品的创新性、实用性和技术含量。</p>
+                <img src="intro/creative.jpg" alt="机器人创意组作品" class="competition-image">
             </div>
-            <div class="timeline-item">
-                <h3>每年8-9月：全国总决赛</h3>
-                <p>各分区优胜队伍齐聚一堂，角逐最终奖项</p>
+
+            <div class="competition-card">
+                <div class="competition-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <h3>智能视觉组</h3>
+                <p>该组别要求智能车仅使用摄像头作为传感器，通过图像处理和识别技术实现自主导航。重点考察参赛者对机器视觉、图像处理算法和嵌入式系统的综合应用能力。</p>
+                <img src="intro/vision.jpg" alt="智能视觉组智能车" class="competition-image">
             </div>
         </div>
 
-        <h2>竞赛意义</h2>
-        <p>全国大学生智能汽车竞赛为学生提供了一个展示创新能力和工程实践能力的平台，通过参赛，学生可以：</p>
+        <h3>竞赛流程</h3>
         <ul>
-            <li><i class="fas fa-star"></i> 将课堂所学理论知识应用于实际工程问题</li>
-            <li><i class="fas fa-star"></i> 培养创新思维和解决复杂工程问题的能力</li>
-            <li><i class="fas fa-star"></i> 提升团队协作和项目管理能力</li>
-            <li><i class="fas fa-star"></i> 与全国各高校的优秀学生交流学习</li>
+            <li><i class="fas fa-calendar-check"></i> 报名阶段：每年3-4月，各高校组织校内选拔并完成报名</li>
+            <li><i class="fas fa-flask"></i> 制作阶段：4-7月，参赛队伍设计并制作智能车</li>
+            <li><i class="fas fa-flag-checkered"></i> 校内赛：7月中旬，各高校组织校内比赛</li>
+            <li><i class="fas fa-university"></i> 省赛：8月上旬，各省市组织省级比赛</li>
+            <li><i class="fas fa-globe-asia"></i> 国赛：8月下旬，全国总决赛</li>
         </ul>
+
+        <h3>竞赛规则要点</h3>
+        <p>不同组别有着不同的具体规则，但总体上都要求：</p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> 智能车必须在规定赛道上自主行驶，无需人工干预</li>
+            <li><i class="fas fa-check-circle"></i> 比赛以完成赛道时间最短者为优</li>
+            <li><i class="fas fa-check-circle"></i> 车辆不得擅自离开赛道，不得发生严重碰撞</li>
+            <li><i class="fas fa-check-circle"></i> 所有参赛作品必须为参赛队伍自主设计制作</li>
+        </ul>
+
+        <h3>我们的成绩</h3>
+        <p>近年来，ASC智能车实验室在各类竞赛中取得了优异成绩，累计获得国家级奖项15项，省级奖项38项，充分展现了实验室成员的技术实力和创新能力。</p>
     </div>
+
     <footer>
         <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
         <p>浙ICP备2025189316号-1</p>

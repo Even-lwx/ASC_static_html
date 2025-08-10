@@ -14,8 +14,10 @@
             --container-bg: #fff;
             --footer-bg: #333;
             --highlight-bg: #e8f4fc;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --card-bg: #f9f9f9;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         [data-theme="dark"] {
@@ -25,6 +27,8 @@
             --container-bg: #1e1e1e;
             --footer-bg: #1e1e1e;
             --highlight-bg: #2a2a2a;
+            --card-bg: #2c2c2c;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -40,29 +44,27 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.8;
             padding-top: 60px;
-            /* 为固定导航栏留出空间 */
         }
 
         header {
-            background: var(--header-bg);
             color: #fff;
-            padding: 3rem 0;
             text-align: center;
-            box-shadow: var(--shadow);
             position: relative;
+            margin-bottom: 2rem;
         }
 
         header h1 {
             font-size: clamp(2.2rem, 6vw, 3.5rem);
             margin: 0;
-            padding: 1.5rem 0;
+            padding: 2rem 5%;
             letter-spacing: 1px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--header-bg);
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 3rem auto;
             padding: 2.5rem;
             background: var(--container-bg);
@@ -95,12 +97,6 @@
             left: 0;
         }
 
-        h3 {
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
-            margin: 1.5rem 0 1rem;
-            color: #0053a6;
-        }
-
         p {
             margin: 1.2rem 0;
             line-height: 1.8;
@@ -110,11 +106,10 @@
         ul {
             list-style: none;
             padding: 0;
-            margin: 1.5rem 0;
         }
 
         ul li {
-            background: #f4f4f4;
+            background: var(--card-bg);
             margin: 0.8rem 0;
             padding: 1rem 1.5rem;
             border-left: 5px solid #0078d7;
@@ -126,10 +121,6 @@
         ul li:hover {
             transform: translateX(5px);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="dark"] ul li {
-            background: #2c2c2c;
         }
 
         footer {
@@ -157,33 +148,33 @@
             border-left: 4px solid #0078d7;
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: var(--header-bg);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+       .theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--header-bg);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-        .theme-toggle:hover {
-            background: #0053a6;
-            transform: scale(1.1);
-        }
+.theme-toggle:hover {
+    background: #0053a6;
+    transform: scale(1.1);
+}
 
-        .theme-toggle:active {
-            transform: scale(0.95);
-        }
+.theme-toggle:active {
+    transform: scale(0.95);
+}
 
         nav {
             background: var(--header-bg);
@@ -201,6 +192,26 @@
             flex-wrap: wrap;
         }
 
+        nav .logo {
+            padding: 0.3rem 0.6rem;
+            margin-right: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo img {
+            height: 2.5rem;
+            width: auto;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav .logo:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
         nav a {
             color: #fff;
             text-decoration: none;
@@ -209,9 +220,6 @@
             padding: 0.5rem 0.8rem;
             border-radius: 4px;
             font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         nav a:hover {
@@ -281,83 +289,167 @@
             font-size: 1.1rem;
         }
 
-        .groups-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .group-card {
-            background: var(--highlight-bg);
-            border-radius: 12px;
+        /* 组别轮播样式 - 最多显示两个卡片 */
+        .group-carousel {
+            position: relative;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 2rem 0;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+        }
+
+        .carousel-wrapper {
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
+        }
+
+        /* 每张卡片占50%宽度，确保最多显示两个卡片 */
+        .group-card {
+            min-width: 50%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .card-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            height: 100%;
             display: flex;
             flex-direction: column;
-        }
-
-        .group-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        .group-header {
-            background: linear-gradient(135deg, #0078d7, #0053a6);
-            color: white;
-            padding: 1.5rem;
+            align-items: center;
             text-align: center;
+            transition: transform 0.3s ease;
         }
 
-        .group-icon {
-            font-size: 3rem;
+        .card-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .group-image {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .group-card h3 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #0053a6;
             margin-bottom: 1rem;
+        }
+
+        .group-card p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+        }
+
+        .group-features {
+            list-style-type: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .group-features li {
+            background: rgba(0, 120, 215, 0.1);
+            margin: 0.8rem 0;
+            padding: 0.8rem 1.2rem;
+            border-left: 4px solid #0078d7;
+            text-align: left;
+        }
+
+        [data-theme="dark"] .group-features li {
+            background: rgba(77, 171, 245, 0.1);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 120, 215, 0.8);
+            color: white;
+            border: none;
+            width: clamp(40px, 8vw, 60px);
+            height: clamp(40px, 8vw, 60px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            transition: var(--transition);
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background: #0053a6;
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .prev-btn {
+            left: 1rem;
+        }
+
+        .next-btn {
+            right: 1rem;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .group-card:hover .group-icon {
-            transform: scale(1.1);
+        .carousel-indicator.active {
+            background-color: #0078d7;
+            transform: scale(1.4);
         }
 
-        .group-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+        /* 响应式设计 - 小屏幕只显示一个卡片 */
+        @media (max-width: 991px) {
+            .group-card {
+                min-width: 100%;
+            }
         }
 
-        .group-body p {
-            flex-grow: 1;
-        }
-
-        .group-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .skill-tag {
-            background: rgba(0, 120, 215, 0.1);
-            color: #0053a6;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        [data-theme="dark"] .skill-tag {
-            background: rgba(77, 171, 245, 0.2);
-            color: #4dabf5;
-        }
-
-        /* 小屏幕适配 */
         @media (max-width: 768px) {
             nav {
                 justify-content: center;
                 gap: 1rem;
                 padding: 0.8rem 5%;
+            }
+
+            nav .logo {
+                margin-right: 0.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            nav .logo img {
+                height: 2rem;
             }
 
             .container {
@@ -370,8 +462,14 @@
                 padding-bottom: 0.6rem;
             }
 
-            .groups-grid {
-                grid-template-columns: 1fr;
+            .group-image {
+                height: 180px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
 
@@ -393,130 +491,139 @@
             .container {
                 padding: 1.5rem;
             }
+
+            .group-card {
+                padding: 0 0.5rem;
+            }
+
+            .card-content {
+                padding: 1.5rem 1rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>主题切换</h2>
-        <button onclick="toggleTheme()" id="theme-button">
-            <i class="fas fa-sun"></i> 亮色
-        </button>
-    </div>
-<nav>
-      <!-- 添加logo图片，点击返回首页 -->
-    <a href="index.html" class="logo">
-        <img src="index/logo.png" alt="ASC智能车实验室logo" style="height: 2.5rem; width: auto;">
-    </a>
-    <a href="index.html"><i class="fas fa-home"></i> 主页</a>
-    <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
-    <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
-    <a href="groups.html" class="active"><i class="fas fa-users"></i> 实验室组别</a>
-    <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
-    <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
-</nav>
+<button onclick="toggleTheme()" class="theme-toggle" id="theme-button">
+    <i class="fas fa-sun"></i> 亮色
+</button>
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="index/logo.png" alt="ASC智能车实验室logo">
+        </a>
+        <a href="index.html"><i class="fas fa-home"></i> 主页</a>
+        <a href="intro.html"><i class="fas fa-info-circle"></i> 竞赛简介</a>
+        <a href="spirit.html"><i class="fas fa-lightbulb"></i> 实验室精神</a>
+        <a href="groups.html" class="active"><i class="fas fa-users"></i> 实验室组别</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> 联系我们</a>
+        <a href="http://oj.hduasta.cn" target="_blank"><i class="fas fa-code"></i> OJ平台</a>
+    </nav>
     <header>
-        <h1><i class="fas fa-sitemap"></i> ASC智能车实验室组别</h1>
+        <h1>ASC智能车实验室 - 实验室组别</h1>
     </header>
     <div class="container">
-        <h2>实验室分组介绍</h2>
-        <p class="highlight">为了高效完成智能车的研发与竞赛任务，实验室根据功能需求划分为三个核心组别，每个组别专注于特定领域的工作，同时保持紧密协作。</p>
+        <h2><i class="fas fa-sitemap"></i> 实验室组别介绍</h2>
+        <p>实验室分为多个专业组别，每个组别负责智能车开发的不同环节，各展所长又紧密协作，共同完成智能车的设计与开发。</p>
 
-        <p>各组别既独立负责专业领域的工作，又相互配合完成整体项目。这种分工模式既能发挥个人专长，又能培养团队协作能力，是我们完成复杂工程任务的有效组织方式。</p>
+        <!-- 组别轮播容器 -->
+        <div class="group-carousel">
+            <button class="carousel-btn prev-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
 
-        <div class="groups-grid">
-            <div class="group-card">
-                <div class="group-header">
-                    <div class="group-icon">
-                        <i class="fas fa-microchip"></i>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- 电控组 -->
+                    <div class="group-card" data-index="0">
+                        <div class="card-content">
+                            <img src="groups/electrical.jpg" alt="电控组工作场景" class="group-image">
+                            <h3>电控组</h3>
+                            <p>电控组是智能车的"大脑"，负责车辆的控制算法开发与实现，确保智能车能够精准地感知环境并做出正确决策。</p>
+
+                            <h4>主要职责：</h4>
+                            <ul class="group-features">
+                                <li><i class="fas fa-code"></i> 控制算法设计与实现</li>
+                                <li><i class="fas fa-microchip"></i> 嵌入式系统开发</li>
+                                <li><i class="fas fa-wifi"></i> 传感器数据处理与融合</li>
+                                <li><i class="fas fa-route"></i> 路径规划与导航</li>
+                                <li><i class="fas fa-sliders-h"></i> 系统调试与参数优化</li>
+                            </ul>
+
+                            <button onclick="showMore('electrical')">了解更多</button>
+                        </div>
                     </div>
-                    <h3>电控组</h3>
-                </div>
-                <div class="group-body">
-                    <p>负责智能车的电子控制系统设计与实现，专注于软件算法开发与系统控制，是智能车的"大脑"。</p>
-                    <h4>主要职责：</h4>
-                    <ul>
-                        <li>开发路径识别与跟踪算法</li>
-                        <li>设计车辆控制算法与PID参数调试</li>
-                        <li>编写嵌入式控制程序</li>
-                        <li>实现传感器数据处理与决策逻辑</li>
-                        <li>优化系统响应速度与稳定性</li>
-                    </ul>
-                    <div class="group-skills">
-                        <span class="skill-tag">C/C++编程</span>
-                        <span class="skill-tag">嵌入式系统</span>
-                        <span class="skill-tag">PID控制</span>
-                        <span class="skill-tag">算法优化</span>
-                        <span class="skill-tag">数据处理</span>
+
+                    <!-- 硬件组 -->
+                    <div class="group-card" data-index="1">
+                        <div class="card-content">
+                            <img src="groups/hardware.jpg" alt="硬件组工作场景" class="group-image">
+                            <h3>硬件组</h3>
+                            <p>硬件组是智能车的"躯干"，负责设计和搭建智能车的硬件平台，为各项功能提供稳定可靠的物理基础。</p>
+
+                            <h4>主要职责：</h4>
+                            <ul class="group-features">
+                                <li><i class="fas fa-circuit-board"></i> 电路设计与PCB绘制</li>
+                                <li><i class="fas fa-tools"></i> 硬件选型与测试</li>
+                                <li><i class="fas fa-battery-full"></i> 电源管理系统设计</li>
+                                <li><i class="fas fa-screwdriver"></i> 硬件组装与调试</li>
+                                <li><i class="fas fa-temperature-high"></i> 可靠性与稳定性测试</li>
+                            </ul>
+
+                            <button onclick="showMore('hardware')">了解更多</button>
+                        </div>
+                    </div>
+
+                    <!-- 宣传组 -->
+                    <div class="group-card" data-index="2">
+                        <div class="card-content">
+                            <img src="groups/propaganda.jpg" alt="宣传组工作场景" class="group-image">
+                            <h3>宣传组</h3>
+                            <p>宣传组是实验室的"窗口"，负责实验室的对外宣传与形象塑造，记录实验室的成长历程。</p>
+
+                            <h4>主要职责：</h4>
+                            <ul class="group-features">
+                                <li><i class="fas fa-camera"></i> 活动摄影与视频拍摄</li>
+                                <li><i class="fas fa-video"></i> 视频剪辑与后期制作</li>
+                                <li><i class="fas fa-pen-fancy"></i> 新闻稿与推文撰写</li>
+                                <li><i class="fas fa-paint-brush"></i> 海报设计与平面创作</li>
+                                <li><i class="fas fa-share-alt"></i> 社交媒体运营与推广</li>
+                            </ul>
+
+                            <button onclick="showMore('propaganda')">了解更多</button>
+                        </div>
+                    </div>
+
+                    <!-- 复制电控组用于无缝循环 -->
+                    <div class="group-card" data-index="0">
+                        <div class="card-content">
+                            <img src="groups/electrical.jpg" alt="电控组工作场景" class="group-image">
+                            <h3>电控组</h3>
+                            <p>电控组是智能车的"大脑"，负责车辆的控制算法开发与实现，确保智能车能够精准地感知环境并做出正确决策。</p>
+
+                            <h4>主要职责：</h4>
+                            <ul class="group-features">
+                                <li><i class="fas fa-code"></i> 控制算法设计与实现</li>
+                                <li><i class="fas fa-microchip"></i> 嵌入式系统开发</li>
+                                <li><i class="fas fa-wifi"></i> 传感器数据处理与融合</li>
+                                <li><i class="fas fa-route"></i> 路径规划与导航</li>
+                                <li><i class="fas fa-sliders-h"></i> 系统调试与参数优化</li>
+                            </ul>
+
+                            <button onclick="showMore('electrical')">了解更多</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="group-card">
-                <div class="group-header">
-                    <div class="group-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>硬件组</h3>
-                </div>
-                <div class="group-body">
-                    <p>负责智能车的硬件设计、制作与调试，包括机械结构与电子电路，是智能车的"身体"。</p>
-                    <h4>主要职责：</h4>
-                    <ul>
-                        <li>设计并制作控制电路板</li>
-                        <li>传感器选型、安装与调试</li>
-                        <li>电机驱动系统搭建</li>
-                        <li>车身结构设计与组装</li>
-                        <li>电源管理与硬件故障排查</li>
-                    </ul>
-                    <div class="group-skills">
-                        <span class="skill-tag">电路设计</span>
-                        <span class="skill-tag">机械结构</span>
-                        <span class="skill-tag">传感器应用</span>
-                        <span class="skill-tag">焊接调试</span>
-                        <span class="skill-tag">3D建模</span>
-                    </div>
-                </div>
-            </div>
+            <button class="carousel-btn next-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
 
-            <div class="group-card">
-                <div class="group-header">
-                    <div class="group-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3>宣传组</h3>
-                </div>
-                <div class="group-body">
-                    <p>负责实验室的对外宣传、活动记录与文化建设，是实验室的"形象代言人"。</p>
-                    <h4>主要职责：</h4>
-                    <ul>
-                        <li>实验室活动摄影与视频拍摄</li>
-                        <li>宣传文案撰写与新媒体运营</li>
-                        <li>制作竞赛回顾与成果展示材料</li>
-                        <li>设计实验室文化产品与标识</li>
-                        <li>组织技术分享会与科普活动</li>
-                    </ul>
-                    <div class="group-skills">
-                        <span class="skill-tag">摄影摄像</span>
-                        <span class="skill-tag">文案写作</span>
-                        <span class="skill-tag">平面设计</span>
-                        <span class="skill-tag">新媒体运营</span>
-                        <span class="skill-tag">活动策划</span>
-                    </div>
-                </div>
+            <!-- 轮播指示器 -->
+            <div class="carousel-indicators">
+                <div class="carousel-indicator active" onclick="goToSlide(0)"></div>
+                <div class="carousel-indicator" onclick="goToSlide(1)"></div>
+                <div class="carousel-indicator" onclick="goToSlide(2)"></div>
             </div>
         </div>
 
-        <h2>组别协作机制</h2>
-        <p>三个核心组别通过紧密协作完成实验室各项任务，主要协作方式包括：</p>
-        <ul>
-            <li><i class="fas fa-sync-alt"></i> 每周定期召开跨组协调会，同步项目进展</li>
-            <li><i class="fas fa-sync-alt"></i> 电控组与硬件组共同进行系统联调与优化</li>
-            <li><i class="fas fa-sync-alt"></i> 宣传组全程记录技术研发与竞赛过程，及时传播成果</li>
-            <li><i class="fas fa-sync-alt"></i> 建立共享文档系统，确保信息畅通与知识传承</li>
-            <li><i class="fas fa-sync-alt"></i> 跨组培训机制，促进成员全面发展与理解</li>
-        </ul>
+        <p>各组成员将接受系统培训，通过理论学习与实践操作相结合的方式，快速提升专业技能，为参加各类智能车竞赛做好充分准备。</p>
     </div>
     <footer>
         <p>© 2025 ASC智能车实验室. 保留所有权利。</p>
@@ -550,6 +657,131 @@
                 themeButton.innerHTML = '<i class="fas fa-sun"></i> 亮色';
             }
         })();
+
+        // 组别轮播功能 - 最多显示两个卡片且宣传组无缝循环到电控组
+        let currentIndex = 0; // 当前显示的第一个卡片索引
+        const track = document.getElementById('carouselTrack');
+        const cards = document.querySelectorAll('.group-card');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const totalUniqueSlides = 3; // 实际独特的组别数量
+        let isTransitioning = false;
+
+        // 更新轮播位置
+        function updateSlidePosition() {
+            // 计算位移百分比（每张卡片占50%宽度）
+            const offset = currentIndex * 50;
+            track.style.transform = `translateX(-${offset}%)`;
+
+            // 更新指示器状态
+            const activeIndicator = currentIndex % totalUniqueSlides;
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === activeIndicator);
+            });
+
+            isTransitioning = false;
+        }
+
+        // 下一张
+        function nextSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // 当当前是最后一个有效索引（宣传组），下一张是复制的电控组
+            // 之后会在动画完成后重置索引，实现无缝循环
+            currentIndex++;
+
+            // 当滚动到复制的电控组后，重置索引实现无缝循环
+            if (currentIndex === totalUniqueSlides) {
+                updateSlidePosition();
+                // 等待动画完成后重置
+                setTimeout(() => {
+                    // 关闭动画效果
+                    track.style.transition = 'none';
+                    currentIndex = 0;
+                    updateSlidePosition();
+                    // 重新开启动画效果
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 50);
+                }, 500);
+            } else {
+                updateSlidePosition();
+            }
+        }
+
+        // 上一张
+        function prevSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            // 如果当前是第一个索引，上一张是最后一个有效索引（宣传组）
+            if (currentIndex === 0) {
+                // 先关闭动画，跳转到复制的电控组位置
+                track.style.transition = 'none';
+                currentIndex = totalUniqueSlides;
+                updateSlidePosition();
+
+                // 然后开启动画，滚动到宣传组
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.5s ease-in-out';
+                    currentIndex = totalUniqueSlides - 1;
+                    updateSlidePosition();
+                }, 50);
+            } else {
+                currentIndex--;
+                updateSlidePosition();
+            }
+        }
+
+        // 跳转到指定幻灯片
+        function goToSlide(index) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            currentIndex = index;
+            updateSlidePosition();
+        }
+
+        // 了解更多功能
+        function showMore(group) {
+            const groupInfo = {
+                electrical: "电控组深入学习PID控制、卡尔曼滤波、路径规划等算法，使用C/C++语言进行嵌入式开发，主要使用STM32系列单片机作为主控制器。",
+                hardware: "硬件组学习Altium Designer等电路设计软件，掌握各类传感器、电机驱动模块的应用，能够独立完成智能车硬件系统的设计与调试。",
+                propaganda: "宣传组学习Photoshop、Premiere等设计剪辑软件，负责实验室微信公众号、B站等平台的运营，记录实验室的日常训练与比赛历程。"
+            };
+
+            alert(groupInfo[group]);
+        }
+
+        // 窗口大小改变时重新计算
+        window.addEventListener('resize', () => {
+            if (!isTransitioning) {
+                // 临时关闭动画
+                const transition = track.style.transition;
+                track.style.transition = 'none';
+                updateSlidePosition();
+                // 重新开启动画
+                setTimeout(() => {
+                    track.style.transition = transition;
+                }, 50);
+            }
+        });
+
+        // 自动轮播
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        // 鼠标悬停时暂停轮播
+        const carousel = document.querySelector('.group-carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+
+        // 初始化
+        updateSlidePosition();
     </script>
 </body>
 
